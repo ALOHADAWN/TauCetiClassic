@@ -37,6 +37,5 @@
 	var/obj/item/mouth
 
 	var/stamina = 100 //Ian uses this for now.
-	var/is_crawling_under_structure = FALSE
 
 	COOLDOWN_DECLARE(toggle_throw_message)

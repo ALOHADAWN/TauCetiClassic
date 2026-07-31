@@ -362,8 +362,6 @@
 	var/turf/oldLoc = loc
 
 	. = ..()
-	if(.)
-		update_crawl_layer(oldLoc)
 
 	if(!. || ISDIAGONALDIR(Dir))
 		return .
@@ -380,32 +378,6 @@
 	handle_rig_move(NewLoc, Dir)
 
 	handle_footsteps(oldLoc, NewLoc, Dir)
-
-/mob/living/carbon/forceMove(atom/destination, keep_pulling = FALSE, keep_buckled = FALSE, keep_moving_diagonally = FALSE, keep_grabs = TRUE)
-	var/atom/old_loc = loc
-	. = ..()
-	if(old_loc != loc)
-		update_crawl_layer(forced_movement = TRUE)
-
-/mob/living/carbon/SetCrawling(value)
-	. = ..()
-	update_crawl_layer()
-
-/mob/living/carbon/proc/update_crawl_layer(atom/old_loc, forced_movement = FALSE)
-	var/was_crawling_under_structure = is_crawling_under_structure
-	var/turf/current_turf = isturf(loc) ? loc : null
-	if(!crawling || forced_movement)
-		is_crawling_under_structure = FALSE
-	else if(current_turf)
-		if(!current_turf.has_crawl_hiding_structure(src))
-			is_crawling_under_structure = FALSE
-		else if(isturf(old_loc) && !old_loc:has_crawl_hiding_structure(src))
-			is_crawling_under_structure = TRUE
-
-	if(current_turf && is_crawling_under_structure)
-		layer = BELOW_CONTAINERS_LAYER
-	else if(was_crawling_under_structure)
-		layer = default_layer
 
 /mob/living/carbon/proc/handle_footsteps(turf/oldLoc, turf/newLoc, Dir)
 	if(lying && !crawling)

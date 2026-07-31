@@ -253,7 +253,7 @@
 			return FALSE
 	return TRUE
 
-/turf/proc/has_crawl_hiding_structure(mob/living/carbon/crawler)
+/turf/proc/has_crawl_hiding_structure(mob/living/crawler)
 	for(var/obj/structure/on_turf as anything in contents)
 		if(on_turf.hides_crawling_mobs && on_turf.buckled_mob != crawler)
 			return TRUE
@@ -288,7 +288,7 @@
 	if(istype(Obj, /obj/structure))
 		var/obj/structure/exited_structure = Obj
 		if(exited_structure.hides_crawling_mobs)
-			for(var/mob/living/carbon/crawler in contents)
+			for(var/mob/living/crawler in contents)
 				crawler.update_crawl_layer()
 
 /turf/proc/adjacent_fire_act(turf/simulated/floor/source, temperature, volume)
