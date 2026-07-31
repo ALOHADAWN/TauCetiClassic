@@ -18,6 +18,12 @@
 		queue_smooth_neighbors(src)
 	return ..()
 
+/obj/structure/post_buckle_mob(mob/living/M)
+	. = ..()
+	if(hides_crawling_mobs && iscarbon(M))
+		var/mob/living/carbon/crawler = M
+		crawler.update_crawl_layer()
+
 /obj/structure/blob_act()
 	if(prob(50))
 		qdel(src)
